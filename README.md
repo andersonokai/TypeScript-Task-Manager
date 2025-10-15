@@ -1,7 +1,7 @@
 # Overview
 This Task Manager is a console-based application built in TypeScript, allowing users to add, remove, list, clear, update task statuses, and manage task priorities. It demonstrates TypeScript’s core features, including variables, expressions, conditionals, loops, functions, classes, interfaces, error handling, and async/await. As a Ghanaian software engineer, my goal was to master TypeScript’s type system and JavaScript interoperability to build robust applications, enhancing my skills for web and backend development in Ghana’s tech industry.
 
-[Software Demo Video](https://youtube.com/watch?v=your_video_id)
+[Software Demo Video](https://youtu.be/shx8kwJ6ywM)
 
 # Development Environment
 - **Tools**: Visual Studio Code, Node.js (v18+), TypeScript, Git
