@@ -14,7 +14,7 @@
 // Import a library for synchronous user input in a console environment.
 // This is used instead of the native asynchronous 'readline' module for simpler menu handling.
 // NOTE: Must run 'npm install prompt-sync @types/prompt-sync'
-const prompt = require('prompt-sync')({ sigint: true });
+const promptSync = require('prompt-sync')({ sigint: true });
 
 // --- Unique Requirement 1: Interface Definition ---
 /**
@@ -165,14 +165,20 @@ async function runMenu(): Promise<void> {
     // Loop: Main application loop
     while (running) {
         displayMenu();
-        const choice = prompt('Enter your choice (1-6): ');
+        const choice = promptSync('Enter your choice (1-6): ');
 
         // Unique Requirement 3: Error Handling with try/catch
         try {
+            // Handle null/undefined input
+            if (!choice) {
+                console.log('❌ No input received. Please try again.');
+                continue;
+            }
+
             switch (choice.trim()) {
                 case '1': {
-                    const name = prompt('Task Name: ');
-                    const description = prompt('Task Description (Optional): ');
+                    const name = promptSync('Task Name: ') || '';
+                    const description = promptSync('Task Description (Optional): ') || '';
                     manager.addTask(name, description);
                     break;
                 }
@@ -180,7 +186,7 @@ async function runMenu(): Promise<void> {
                     manager.listTasks();
                     break;
                 case '3': {
-                    const idStr = prompt('Enter Task ID to remove: ');
+                    const idStr = promptSync('Enter Task ID to remove: ') || '';
                     // Expression: Type casting using parseInt
                     const id = parseInt(idStr.trim());
                     if (isNaN(id)) throw new Error('Invalid ID entered.');
@@ -189,10 +195,10 @@ async function runMenu(): Promise<void> {
                 }
                 case '4': {
                     manager.listTasks();
-                    const idStr = prompt('Enter Task ID to update status: ');
+                    const idStr = promptSync('Enter Task ID to update status: ') || '';
                     const id = parseInt(idStr.trim());
                     if (isNaN(id)) throw new Error('Invalid ID entered.');
-                    const statusStr = prompt('New Status (Pending/Completed): ');
+                    const statusStr = promptSync('New Status (Pending/Completed): ') || '';
                     // Expression: Type casting for status using 'as' for type safety
                     const status = statusStr.trim() as 'Pending' | 'Completed';
                     manager.updateTaskStatus(id, status);
